@@ -52,25 +52,30 @@ class Api::V1::LineFoodsController < ApplicationController
   end
 
   private
-    def set_food
-      @ordered_food = Food.find(params[:food_id])
-    end
-    def set_line_food(ordered_food)
-      if ordered_food.line_food.present?
-        # 仮注文がすでに存在している場合の処理
-        @line_food = ordered_food.line_food
-        @line_food.attributes = {
-          count: ordered_food.line_food.count + params[:count],
-          active: true
-        }
-      else
-        # 仮注文が存在しない場合の処理
-        @line_food = ordered_food.build_line_food(
-          count: params[:count],
-          restaurant: ordered_food.restaurant,
-          active: true
-        )
-      end
+  def set_food
+    @ordered_food = Food.find(params[:food_id])
+  end
+
+  def set_line_food(ordered_food)
+    if ordered_food.line_food.present?
+      # 仮注文がすでに存在している場合の処理
+      @line_food = ordered_food.line_food
+      @line_food.attributes = {
+        count: ordered_food.line_food.count + params[:count],
+        active: true
+      }
+    else
+      # 仮注文が存在しない場合の処理
+      @line_food = ordered_food.build_line_food(
+        count: params[:count],
+        restaurant: ordered_food.restaurant,
+        active: true
+      )
     end
   end
 end
+
+
+
+
+
