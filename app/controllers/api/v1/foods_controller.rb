@@ -7,4 +7,12 @@ class Api::V1::FoodsController < ApplicationController
       foods: foods
     }, status: :ok
   end
+
+  def show
+    food = Food.find(params[:id])
+
+    render json: {
+      food: food
+    }, status: :ok
+  end
 end
