@@ -9,6 +9,7 @@ class Api::V1::LineFoodsController < ApplicationController
         restaurant: line_foods[0].restaurant,
         food_ids: line_foods.map { |line_food| line_food.food.id },
         count: line_foods.sum { |line_food| line_food[:count] },
+        each_count: line_foods.map { |line_food| line_food[:count] },
         amount: line_foods.sum { |line_food| line_food.total_amount },
       }, status: :ok
     else
